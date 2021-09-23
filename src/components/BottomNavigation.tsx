@@ -678,7 +678,7 @@ const BottomNavigation = ({
         }
         pointerEvents={
           layout.measured
-            ? keyboardHidesNavigationBar && keyboardVisible
+            ? keyboardHidesNavigationBar
               ? 'none'
               : 'auto'
             : 'none'
