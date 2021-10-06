@@ -3,6 +3,7 @@ import {
   View,
   Animated,
   TouchableWithoutFeedback,
+  LayoutChangeEvent,
   TouchableWithoutFeedbackProps,
   StyleSheet,
   StyleProp,
@@ -225,6 +226,7 @@ type Props = {
    * ```
    */
   barStyle?: StyleProp<ViewStyle>;
+  onBarLayout?: (e: LayoutChangeEvent) => void,
   style?: StyleProp<ViewStyle>;
   /**
    * @optional
@@ -341,6 +343,7 @@ const BottomNavigation = ({
   sceneAnimationEnabled = false,
   onTabPress,
   onIndexChange,
+  onBarLayout,
   shifting = navigationState.routes.length > 3,
   safeAreaInsets,
 }: Props) => {
@@ -683,7 +686,12 @@ const BottomNavigation = ({
               : 'auto'
             : 'none'
         }
-        onLayout={onLayout}
+        onLayout={(e: LayoutChangeEvent) => {
+          onLayout(e)
+          if (onBarLayout) {
+            onBarLayout(e)
+          }
+        }}
       >
         <Animated.View style={[styles.barContent, { backgroundColor }]}>
           <View
